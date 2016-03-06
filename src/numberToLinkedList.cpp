@@ -13,12 +13,40 @@ NOTES: For negative numbers ignore negative sign.
 
 #include <stdio.h>
 #include <malloc.h>
-
 struct node {
 	int num;
 	struct node *next;
 };
+typedef struct node *lptr;
 
-struct node * numberToLinkedList(int N) {
-	return NULL;
+struct node * numberToLinkedList(int N) 
+{
+	lptr t,first;
+	first = NULL;
+	int a[10],i = 0,j=0;
+	if (N < 0)
+		N = -N;
+	if (N == 0)
+	{
+		t = (lptr)malloc(sizeof(struct node));
+		t->num = 0;
+		t->next = NULL;
+		first = t;
+		return first;
+	}
+	while (N != 0)
+	{
+		a[i] = N % 10;
+		N = N / 10;
+		i++;
+	}
+	while ((j < i))
+	{
+		t = (lptr)malloc(sizeof(struct node));
+		t->num = a[j];
+		t->next = first;
+		first = t;
+		j++;
+	}
+	return first;
 }
