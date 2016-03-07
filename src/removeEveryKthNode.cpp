@@ -10,7 +10,6 @@ ERROR CASES: Return NULL for error cases.
 
 NOTES:
 */
-
 #include <stdio.h>
 #include<stdlib.h>
 struct node {
@@ -19,9 +18,10 @@ struct node {
 };
 struct node * removeEveryKthNode(struct node *head, int K) 
 {
-	if (head==NULL)
- 	   return NULL;
-	struct node * prev,*t;
+	int count = 0;
+	if ((head == NULL) || (K <= 1))
+		return NULL;
+	struct node * prev, *t;
 	t = head;
 	prev = head;
 	while (head != NULL)
@@ -35,14 +35,16 @@ struct node * removeEveryKthNode(struct node *head, int K)
 		}
 		else
 		{
-			if (((head->next->num) % K == 0) && (head->next != NULL))
+			if (((head->next != NULL) && ((head->next->num) % K == 0)))
 			{
 				prev = head->next;
 				head->next = head->next->next;
 				free(prev);
 			}
 		}
+
 		head = head->next;
 	}
-	return t;
+	head = t;
+	return head;
 }
